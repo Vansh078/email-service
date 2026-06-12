@@ -8,7 +8,7 @@ import com.project.email_service.service.EmailService;
 
 import lombok.RequiredArgsConstructor;
 @RestController
-@RequestMapping("/api/email")
+@RequestMapping("/email")
 @RequiredArgsConstructor
 public class EmailController {
 	private final EmailService emailService;

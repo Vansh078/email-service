@@ -40,5 +40,15 @@ steps:
       key: ${{ secrets.VM_SSH_KEY }}
       script: |
         sudo systemctl restart email-service
-        sudo systemctl status email-service --no-pager
+        sleep 15
+        sudo systemctl is-active email-service
+
+  - name: Health Check
+    uses: appleboy/ssh-action@v1.0.3
+    with:
+      host: ${{ secrets.VM_HOST }}
+      username: ${{ secrets.VM_USER }}
+      key: ${{ secrets.VM_SSH_KEY }}
+      script: |
+        curl -f http://localhost:8080/actuator/health
 ```

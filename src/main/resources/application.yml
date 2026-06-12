@@ -28,3 +28,13 @@ aws:
 logging:
   level:
     io.awspring.cloud: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+  endpoint:
+    health:
+      show-details: always

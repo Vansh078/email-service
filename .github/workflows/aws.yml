@@ -9,7 +9,6 @@ jobs:
 deploy:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout Code
     uses: actions/checkout@v4
@@ -41,4 +40,4 @@ steps:
       script: |
         sudo systemctl restart email-service
         sudo systemctl status email-service --no-pager
-```
+

@@ -9,7 +9,7 @@ jobs:
 deploy:
 runs-on: ubuntu-latest
 
-```
+
 steps:
   - name: Checkout Code
     uses: actions/checkout@v4
@@ -18,7 +18,7 @@ steps:
     uses: actions/setup-java@v4
     with:
       distribution: temurin
-      java-version: 17
+      java-version: '17'
 
   - name: Build Application
     run: mvn clean package -DskipTests
@@ -30,7 +30,8 @@ steps:
       username: ${{ secrets.VM_USER }}
       key: ${{ secrets.VM_SSH_KEY }}
       source: "target/email-service-0.0.1-SNAPSHOT.jar"
-      target: "/home/ubuntu/apps/email-service"
+      target: "/home/ubuntu/apps/email-service/"
+      strip_components: 1
 
   - name: Restart Application
     uses: appleboy/ssh-action@v1.0.3
@@ -51,4 +52,4 @@ steps:
       key: ${{ secrets.VM_SSH_KEY }}
       script: |
         curl -f http://localhost:8080/actuator/health
-```
+

@@ -30,9 +30,10 @@ steps:
       username: ${{ secrets.VM_USER }}
       key: ${{ secrets.VM_SSH_KEY }}
       source: "target/email-service-0.0.1-SNAPSHOT.jar"
-      target: "/home/ubuntu/apps/email-service"
+      target: "/home/ubuntu/apps/email-service/"
+      strip_components: 1
 
-  - name: Restart Application
+  - name: Deploy and Restart
     uses: appleboy/ssh-action@v1.0.3
     with:
       host: ${{ secrets.VM_HOST }}
@@ -40,8 +41,8 @@ steps:
       key: ${{ secrets.VM_SSH_KEY }}
       script: |
         sudo systemctl restart email-service
-        sleep 15
-        sudo systemctl is-active email-service
+        sleep 10
+        sudo systemctl status email-service --no-pager
 
   - name: Health Check
     uses: appleboy/ssh-action@v1.0.3

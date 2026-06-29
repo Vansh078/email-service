@@ -1,4 +1,5 @@
 package com.project.email_service.util;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +11,15 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import com.amazonaws.services.simpleemail.model.SendEmailResult;
 import com.project.email_service.dto.UsersEmail;
+
 public class EmailUtil {
-	private EmailUtil() {
+
+    private EmailUtil() {
     }
 
-    public static void sendEmailWithCcAndBcc(
+    public static SendEmailResult sendEmailWithCcAndBcc(
             AmazonSimpleEmailService amazonSimpleEmailService,
             List<String> toEmails,
             List<UsersEmail> ccEmails,
@@ -63,8 +67,10 @@ public class EmailUtil {
                 .withMessage(message)
                 .withConfigurationSetName("my-first-configuration-set");
 
-        var result = amazonSimpleEmailService.sendEmail(request);
-        System.out.println("SES Message ID = " + result.getMessageId());    
-        }
+        SendEmailResult result = amazonSimpleEmailService.sendEmail(request);
 
+        System.out.println("SES Message ID = " + result.getMessageId());
+
+        return result;
+    }
 }
